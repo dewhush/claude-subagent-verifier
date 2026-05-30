@@ -120,3 +120,4 @@ Claude Code's own dynamic-workflow runner reports per-agent completion text back
 MIT © dewhush 2026.
 
 <!-- threads-permalink -->
+Threads launch post: https://www.threads.com/@dewprotocols/post/DY8TQGBEqLt
