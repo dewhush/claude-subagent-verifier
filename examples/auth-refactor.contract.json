@@ -1,0 +1,18 @@
+{
+  "task_id": "auth-refactor-001",
+  "subagent_type": "general-purpose",
+  "must_create": ["src/auth/oauth.py"],
+  "must_modify": ["src/auth/__init__.py"],
+  "must_not_touch": [
+    "src/billing/**",
+    "migrations/**",
+    "infra/terraform/**"
+  ],
+  "must_pass": [
+    {"cmd": ["pytest", "tests/auth", "-q"], "timeout_s": 180}
+  ],
+  "must_lint_clean": [
+    {"cmd": ["ruff", "check", "src/auth"], "timeout_s": 30},
+    {"cmd": ["mypy", "src/auth", "--strict"], "timeout_s": 60}
+  ]
+}

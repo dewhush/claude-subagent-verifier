@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/dewhush/claude-subagent-verifier/contract.schema.json",
+  "title": "claude-subagent-verifier contract",
+  "type": "object",
+  "required": ["task_id", "subagent_type"],
+  "additionalProperties": false,
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "pattern": "^[A-Za-z0-9_.-]+$",
+      "description": "Unique id; used to name snapshot/result files."
+    },
+    "subagent_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "description": "Free-form label (e.g. general-purpose, bug-hunter)."
+    },
+    "must_create": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "description": "Paths that must NOT exist pre, MUST exist post."
+    },
+    "must_modify": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "description": "Paths whose content hash MUST differ post."
+    },
+    "must_delete": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "description": "Paths that MUST exist pre and MUST NOT exist post."
+    },
+    "must_not_touch": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
+      "description": "Globs; any matched file whose hash changes is a violation."
+    },
+    "must_pass": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/commandSpec"},
+      "description": "Each command must exit 0."
+    },
+    "must_lint_clean": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/commandSpec"},
+      "description": "Same shape as must_pass; conceptually grouped for clarity."
+    },
+    "worktree": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional worktree path; overrides --worktree CLI flag if both set."
+    }
+  },
+  "$defs": {
+    "commandSpec": {
+      "type": "object",
+      "required": ["cmd"],
+      "additionalProperties": false,
+      "properties": {
+        "cmd": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "timeout_s": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 3600
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "noop-detector-demo",
+  "subagent_type": "general-purpose",
+  "must_create": ["docs/architecture.md"],
+  "must_not_touch": ["src/**"],
+  "must_pass": [
+    {"cmd": ["bash", "-lc", "test -s docs/architecture.md"], "timeout_s": 5}
+  ]
+}

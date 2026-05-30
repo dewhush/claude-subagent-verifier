@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node (in case examples grow)
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Verifier runtime artifacts (consumers should NOT check these in)
+.claude/verifier/*.snapshot.json
+.claude/verifier/*.result.json
